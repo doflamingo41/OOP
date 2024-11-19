@@ -1,0 +1,64 @@
+import java.io.*;
+import java.util.*;
+
+public class ReadAndWriteFile {
+    public static void main(String[] args) {
+
+        Scanner inputFile = null;
+        PrintWriter outputFile = null;
+        
+        try {
+ 
+            inputFile = new Scanner(new File("Input.txt"));
+            
+            
+            outputFile = new PrintWriter(new File("Output.txt"));
+            
+            
+            List<Integer> numbers = new ArrayList<>();
+            
+            
+            while (inputFile.hasNext()) {
+                String line = inputFile.nextLine(); 
+                String[] tokens = line.split(","); 
+                
+                
+                for (String token : tokens) {
+                    numbers.add(Integer.parseInt(token.trim())); 
+                }
+            }
+            
+           
+            int highestValue = Collections.max(numbers);
+            
+            
+            int sum = 0;
+            for (int num : numbers) {
+                sum += num;
+            }
+            
+            
+            outputFile.println("Highest Value: " + highestValue);
+            outputFile.println("Sum: " + sum);
+            
+            
+            outputFile.print("Numbers: ");
+            for (int num : numbers) {
+                outputFile.print(num + " ");
+            }
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: The file was not found.");
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        } finally {
+            
+            if (inputFile != null) {
+                inputFile.close();
+            }
+            if (outputFile != null) {
+                outputFile.close();
+            }
+        }
+    }
+}
